@@ -1,19 +1,41 @@
-import { FC, createContext, useState } from "react";
+import { 
+    FC, 
+    createContext, 
+    useState, 
+    ReactNode,
+    useEffect,
+} from "react";
+import { isExpired } from 'react-jwt';
+import { IContext } from "../../interfaces/IContext";
 
-interface IContext {
-    token: string;
+interface BaseLayoutProps {
+    children?: ReactNode;
 }
 
-const AuthProvider = createContext<IContext>({ token: ''});
+const AuthContext = createContext<IContext>({ 
+    token: '', 
+    isAuth: false,
+});
 
-const AuthContext: FC<IContext> = ({ children }) => {
-    const [token, setToken] = useState<string>('sdsa');
+const AuthProvider: FC<BaseLayoutProps> = ({ children }) => {
+    const [token, setToken] = useState<string | null>('sdsa');
+    const [isAuth, setIsAuth] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            setToken(localStorage.getItem('token'));
+        }
+
+        if (token && isExpired(token)) {
+            setIsAuth(false);
+        }
+    }, [token]);
 
     return (
-        <AuthProvider.Provider value={{ token }}>
+        <AuthContext.Provider value={{ token, isAuth }}>
             { children }
-        </AuthProvider.Provider>
+        </AuthContext.Provider>
     )
-}
+};
 
-export { AuthContext }
+export { AuthContext, AuthProvider }
