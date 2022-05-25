@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 import { Container } from './style';
 
 const Login: FC = () => {
@@ -28,6 +29,9 @@ const Login: FC = () => {
                     type="text" placeholder="Password..." />
                 <br />
                 <button onClick={() => console.log(form)}>Login</button>
+                <Link to={'/register'}>
+                    <button>Register</button>
+                </Link>
             </div>
         </Container>
     )
