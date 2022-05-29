@@ -16,7 +16,7 @@ const Router: FC = () => {
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/video" element={<Video />} />
+                <Route path="/video/:id" element={<Video />} />
             </Routes>
         </BrowserRouter>
     )
