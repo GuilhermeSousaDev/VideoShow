@@ -5,7 +5,8 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Home from "./pages/Home";
 import Upload from "./pages/Upload";
-import Video from "./pages/Video";
+import ShowVideo from "./pages/ShowVideo";
+import Videos from "./pages/Videos";
 
 const Router: FC = () => {
     return (
@@ -16,7 +17,8 @@ const Router: FC = () => {
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/video/:id" element={<Video />} />
+                <Route path="/video/:id" element={<ShowVideo />} />
+                <Route path="/videos" element={<Videos />} />
             </Routes>
         </BrowserRouter>
     )

@@ -7,11 +7,11 @@ const VideoPlayer: FC<{ id: string }> = ({ id }) => {
 
     return (
         <>
-            <h1>__VideoTitle__</h1>
-
-            <video src="">
+            <video src="https://www.w3schools.com/html/mov_bbb.mp4" controls>
 
             </video>
+
+            <h3>__VideoTitle__</h3>
         </>
     )
 };
