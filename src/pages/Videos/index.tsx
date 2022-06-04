@@ -4,23 +4,13 @@ import {
     useState, 
     useCallback, 
     MouseEvent,
-    useRef,
-    MutableRefObject,
     } from 'react';
 import api from '../../services/Axios';
-import { app } from '../../config/global';
-
-interface IVideos {
-    id: string;
-    title: string;
-    description: string;
-    video: string;
-    createdAt: Date;
-    updatedAt: Date;
-}
+import { Link } from 'react-router-dom';
+import { IVideo } from '../../interfaces/IVideo';
 
 const Videos: FC = () => {
-    const [videos, setVideos] = useState<IVideos[]>();
+    const [videos, setVideos] = useState<IVideo[]>();
 
     useEffect(() => {
         (async () => {
@@ -51,17 +41,16 @@ const Videos: FC = () => {
             <h1>Videos</h1>
             
             { videos? videos.map(video =>
-                <>
+                <Link to={`/video/${video.id}`} key={video.id}>
                     <h1>{ video.title }</h1>
                     <span>{ video.description }</span>
                     <video 
-                        key={video.id}
                         onMouseOver={handleInitVideo}
                         onMouseLeave={handlePauseVideo}
                         src={`http://localhost:8081/video/${video.video}`}
                         muted={true}
                         ></video>
-                </>
+                </Link>
             )
             : '' }
         </>
