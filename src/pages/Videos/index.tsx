@@ -4,10 +4,11 @@ import {
     useState, 
     useCallback, 
     MouseEvent,
-    } from 'react';
+} from 'react';
 import api from '../../services/Axios';
 import { Link } from 'react-router-dom';
 import { IVideo } from '../../interfaces/IVideo';
+import { app } from '../../config/global';
 
 const Videos: FC = () => {
     const [videos, setVideos] = useState<IVideo[]>();
@@ -47,7 +48,7 @@ const Videos: FC = () => {
                     <video 
                         onMouseOver={handleInitVideo}
                         onMouseLeave={handlePauseVideo}
-                        src={`http://localhost:8081/video/${video.video}`}
+                        src={`${app.VIDEO_URL}/${video.video}`}
                         muted={true}
                         ></video>
                 </Link>

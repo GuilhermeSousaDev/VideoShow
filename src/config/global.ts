@@ -1,3 +1,3 @@
 export const app = {
-    url: 'http://localhost:8081'
+    VIDEO_URL: 'http://localhost:8081/videos'
 };
