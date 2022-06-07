@@ -17,6 +17,9 @@ const Login: FC = () => {
         const { data } = await api.post('/session', form);
 
         localStorage.setItem('token', data?.token);
+
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
     }, [form]);
 
     return (

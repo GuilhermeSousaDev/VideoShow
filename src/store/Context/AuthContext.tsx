@@ -26,8 +26,8 @@ const AuthProvider: FC<BaseLayoutProps> = ({ children }) => {
             setToken(localStorage.getItem('token'));
         }
 
-        if (token && isExpired(token)) {
-            setIsAuth(false);
+        if (token && !isExpired(token)) {
+            setIsAuth(true);
         }
     }, [token]);
 
