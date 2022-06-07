@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../../services/Axios";
 import { Container } from "./style";
 
 const Register: FC = () => {
@@ -10,6 +11,12 @@ const Register: FC = () => {
             ...form,
             [e.target.name]: e.target.value,
         });
+    }, [form]);
+
+    const handleRegisterUser = useCallback(async () => {
+        const { data } = await api.post('user', form);
+
+        console.log(data);
     }, [form]);
 
     return (
@@ -33,7 +40,8 @@ const Register: FC = () => {
                     name="password"
                     type="text" placeholder="Password..." />
                 <br />
-                <button onClick={() => console.log()}>Register</button>
+                <button onClick={handleRegisterUser}>Register</button>=
+                <br />
                 <Link to={'/login'}>
                     <button>Cancelar</button>
                 </Link>

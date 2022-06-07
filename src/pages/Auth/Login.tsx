@@ -16,7 +16,7 @@ const Login: FC = () => {
     const handleLoginForm = useCallback(async () => {
         const { data } = await api.post('/session', form);
 
-        console.log(data);
+        localStorage.setItem('token', data?.token);
     }, [form]);
 
     return (
