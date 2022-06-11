@@ -1,9 +1,10 @@
 import { ChangeEvent, FC, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/Axios";
 import { Container } from './style';
 
 const Login: FC = () => {
+    const navigate = useNavigate();
     const [form, setForm] = useState<{ [key: string]: string }>();
 
     const handleChangeForm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -18,9 +19,11 @@ const Login: FC = () => {
 
         localStorage.setItem('token', data?.token);
 
+        navigate('/')
+
         // eslint-disable-next-line no-restricted-globals
-        location.reload();
-    }, [form]);
+        location.reload()
+    }, [form, navigate]);
 
     return (
         <Container>

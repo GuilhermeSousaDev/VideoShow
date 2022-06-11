@@ -18,7 +18,7 @@ const AuthContext = createContext<IContext>({
 });
 
 const AuthProvider: FC<BaseLayoutProps> = ({ children }) => {
-    const [token, setToken] = useState<string | null>('sdsa');
+    const [token, setToken] = useState<string | null>(null);
     const [isAuth, setIsAuth] = useState<boolean>(false);
 
     useEffect(() => {
