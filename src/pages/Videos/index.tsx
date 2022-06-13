@@ -8,14 +8,22 @@ import {
 import api from '../../services/Axios';
 import { Link } from 'react-router-dom';
 import { IVideo } from '../../interfaces/IVideo';
-import { app } from '../../config/global';
+import { appConfig } from '../../config/global';
+import { IProgress } from '../../interfaces/IProgress';
+import { Container } from './style';
 
 const Videos: FC = () => {
     const [videos, setVideos] = useState<IVideo[]>();
+    const [progress, setProgress] = useState<IProgress>();
 
     useEffect(() => {
         (async () => {
-            const { data } = await api.get('/video');
+            const { data } = await api.get('/video', { 
+                onDownloadProgress: pge => setProgress({ 
+                    loaded: pge.loaded,  
+                    total: pge.total
+                }),
+            });
 
             setVideos(data);
         })(); 
@@ -38,23 +46,25 @@ const Videos: FC = () => {
     }, []);
 
     return (
-        <>
+        <Container>
             <h1>Videos</h1>
             
             { videos? videos.map(video =>
                 <Link to={`/video/${video.id}`} key={video.id}>
                     <h1>{ video.title }</h1>
-                    <span>{ video.description }</span>
-                    <video 
-                        onMouseOver={handleInitVideo}
-                        onMouseLeave={handlePauseVideo}
-                        src={`${app.VIDEO_URL}/${video.video}`}
-                        muted={true}
-                        ></video>
+                    { progress && progress.loaded <= progress.total ?
+                        <video 
+                            onMouseOver={handleInitVideo}
+                            onMouseLeave={handlePauseVideo}
+                            src={`${appConfig.VIDEO_URL}/${video.video}`}
+                            muted={true}
+                        ></video> : 
+                        <progress value={progress?.loaded}></progress>
+                    }
                 </Link>
             )
             : '' }
-        </>
+        </Container>
     )
 }
 
